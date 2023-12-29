@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js" defer ></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <title>Typing-Practice-App</title>
+</head>
+<body>
+    <section>
+        <div class="screen">
+            <p>Melhor tempo:
+            <div id="tempo_total">00:00:000</div>    
+            </p>
+            <div class="infos">
+                <div class="flex">
+                    Tempo:
+                    <div>
+                        00:
+                    </div>
+                    <div id="tempo">00</div>
+                    <p>:</p>
+                    <div id="segundos_tempo">000</div>
+                </div>
+                <div class="flex">
+                    Acertividade
+                    <div id="acertividade">00.0%</div>
+                </div>
+            </div>
+            <div>
+                <h1 id="textoGerado"></h1>
+                <textarea style="resize: none;" name="texto" id="textoDigitado" cols="50" rows="10" placeholder="Digite aqui" oninput="iniciarContador()"></textarea>
+            </div>
+            <div class="botoes">
+                <button id="iniciarProjeto" onclick="iniciarContagemRegressiva()">Iniciar</button>
+                <button id="gerarTexto">Refazer</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

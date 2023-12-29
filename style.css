@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sora,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+.screen{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.flex{
+    display: flex;
+}
+
+.infos{
+    display: flex;
+    padding-bottom: 50px ;
+    gap: 20px;
+}
+
+#textoGerado{
+    font-size: 15px;
+    font-weight: 200;
+    max-width: 400px;
+    text-align: center;
+}
+
+button{
+    outline: none;
+    border-radius: 10px;
+    padding: 5px 20px;
+    color: #1e1e1e;
+    background-color: #fff;
+}
+
+button:hover{
+    scale: 1.2;
+    transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-right: rgb(122, 122, 250) solid 5px;
+    border-bottom: rgb(7, 47, 224) solid 5px;
+
+}
+
+.botoes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    height: 50px;
+    width: 100%;
+}
