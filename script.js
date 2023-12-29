@@ -1,67 +1,87 @@
-document.getElementById('iniciarProjeto').addEventListener('click', function() {
-    var textos = {
-        texto1: 'O rápido rapaz marrom pula sobre o cão preguiçoso.',
-        texto2: 'Um pequeno passo para o homem, um salto gigante para a humanidade.',
-        texto3: 'A vida é o que acontece enquanto você está ocupado fazendo outros planos.',
-        texto4: 'A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original.',
-        texto5: 'Nada na vida deve ser temido, apenas compreendido.',
-        texto6: 'A imaginação é mais importante que o conhecimento.'
-    };
+function main() {
+    document.getElementById('botaoGeradorInicio').addEventListener('click', function() {
+        gerarFrase();
+    });
+}
 
-    var chaves = Object.keys(textos);
-    var indice = Math.floor(Math.random() * chaves.length);
-    var chaveAleatoria = chaves[indice];
-    var textoGerado = textos[chaveAleatoria];
+function gerarFrase() {
+    var textos = [
+        'O rápido rapaz marrom pula sobre o cão preguiçoso.',
+        'Um pequeno passo para o homem, um salto gigante para a humanidade.',
+        'A vida é o que acontece enquanto você está ocupado fazendo outros planos.',
+        'A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original.',
+        'Nada na vida deve ser temido, apenas compreendido.',
+        'A imaginação é mais importante que o conhecimento.'
+    ];
+
+    var indice = Math.floor(Math.random() * textos.length);
+    var textoGerado = textos[indice];
 
     document.getElementById('textoGerado').innerText = textoGerado;
-});
+    document.getElementById('acertividade').innerText = ''; // Limpa o elemento
 
-
+    iniciarContagemRegressiva();
+}
 
 function iniciarContagemRegressiva() {
+    var inicio = new Date().getTime(); // Armazena o tempo de início
+    var intervalId = setInterval(function () {
+        var agora = new Date().getTime(); // Tempo atual
+        var contador = agora - inicio; // Calcula o tempo decorrido
 
-    contador = 20000; // 20 segundos em milissegundos
-    tempoS = contador / 1000; // Converte para segundos
-    mostrarContador();
+        mostrarContador(contador);
 
-    var intervalId = setInterval(function() {
-        contador -= 10; 
+        var textoDigitado = document.getElementById('textoDigitado').value;
+        var textoGerado = document.getElementById('textoGerado').innerText;
 
-        // Exibe o contador
-        mostrarContador();
-
-        // Verifica se o contador chegou a zero
-        if (contador <= 0) {
+        if (textoDigitado.length === textoGerado.length) {
             pararContagemRegressiva(intervalId);
+            verificarAcertividade(textoDigitado, textoGerado, contador);
         }
     }, 10);
 }
 
 function pararContagemRegressiva(intervalId) {
-    clearInterval(intervalId); // Para o intervalo
-    var textoDigitado = document.getElementById('textoDigitado').value;
-    let textoGerado = document.getElementById('textoGerado').innerText
-    // Verifica se o texto digitado é igual ao texto gerado
-
-
-
-    if (textoDigitado === textoGerado) {
-        alert('Parabéns! Você conseguiu!');
-    } else {
-        alert('Tente novamente. Os textos não coincidem.');
-    }
-
-    // Limpa o campo de texto digitado
-    document.getElementById('textoDigitado').value = '';
+    clearInterval(intervalId);
 }
 
-function mostrarContador() {
-    // Exibe o contador na tela
+function mostrarContador(contador) {
     var segundos = Math.floor(contador / 1000);
     var milissegundos = contador % 1000;
 
-    document.getElementById('tempo').innerText = segundos;
-    document.getElementById('segundos_tempo').innerText = milissegundos;
+    document.getElementById('tempo').innerText = formatarTempo(segundos, milissegundos);
+}
+
+function verificarAcertividade(textoDigitado, textoGerado, tempo) {
+    var porcentagemAcerto = calcularPorcentagemAcerto(textoDigitado, textoGerado);
+
+    document.getElementById('acertividade').innerText = 'Porcentagem de acerto: ' + porcentagemAcerto.toFixed(2) + '%';
+
+    adicionarLinhaTabela(formatarTempo(tempo), textoGerado, porcentagemAcerto.toFixed(2));
+}
+
+function adicionarLinhaTabela(tempo, frase, acertividade) {
+    var tabela = document.getElementById('adicionarLinhaTabela');
+    var novaLinha = tabela.insertRow(tabela.rows.length);
+
+    var cellTempo = novaLinha.insertCell(0);
+    var cellFrase = novaLinha.insertCell(1);
+    var cellAcertividade = novaLinha.insertCell(2);
+
+    cellTempo.textContent = tempo;
+    cellFrase.textContent = frase;
+    cellAcertividade.textContent = acertividade + '%';
+    console.log('está funcionando!')
+}
+
+function formatarTempo(segundos, milissegundos) {
+    var data = new Date(0);
+    data.setSeconds(segundos);
+    data.setMilliseconds(milissegundos);
+
+    var formatoTempo = data.toISOString().substr(11, 8) + '.' + milissegundos;
+
+    return formatoTempo;
 }
 
 function calcularPorcentagemAcerto(textoDigitado, textoGerado) {
@@ -76,3 +96,5 @@ function calcularPorcentagemAcerto(textoDigitado, textoGerado) {
 
     return (caracteresCorrespondentes / tamanhoTexto) * 100;
 }
+
+main();
